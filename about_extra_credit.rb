@@ -10,7 +10,7 @@
 class Game
 
   def initialize(players)
-    raise "This game needs 2 or more players" unless players.is_a?(Fixnum) or players < 2
+    fail "This game needs 2 or more players" unless players.is_a?(Fixnum) or players < 2
 
     @players = []
     players.times {|n| @players << Player.new("Player #{n+1}") }
@@ -29,12 +29,11 @@ class Game
     @players.each { |player| player.turn }
 
     printf "---- And the winner is #{winner.name} with #{winner.points}. ----\n\n"
-    @players.sort_by { |player| player.points }.reverse!
 
     i = 1
 
     printf "Place | Player Name | Points\n"
-    @players.each do |player| 
+    @players.sort_by { |player| player.points }.reverse_each do |player| 
       printf "%5d | %11s | %s\n" % [i, player.name, player.points]
       i += 1
     end
